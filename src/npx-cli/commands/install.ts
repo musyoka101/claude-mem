@@ -1787,15 +1787,12 @@ async function promptTelemetryOptIn(): Promise<void> {
 /**
  * Whether an install still has an account question to answer.
  *
- * Only `--provider claude` is exempt: it configures memory against the user's
- * own Anthropic plan and needs no claude-mem credentials. `gemini` and
- * `openrouter` are NOT exempt — openrouter is the transport for the cmem
- * gateway, so an explicit `openrouter` install may still be reaching cmem.ai.
- * With no flag at all the provider screen can still offer CMEM Pro, so login
- * must happen first.
+ * Any explicit provider is exempt because it fully answers the provider
+ * question and uses credentials supplied by the user. With no flag at all the
+ * provider screen can still offer CMEM Pro, so login must happen first.
  */
 export function providerNeedsAccount(provider: InstallOptions['provider']): boolean {
-  return provider !== 'claude';
+  return provider === undefined;
 }
 
 export interface InstallOptions {

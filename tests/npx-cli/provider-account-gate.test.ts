@@ -15,14 +15,12 @@ describe('provider account gate', () => {
     expect(providerNeedsAccount(undefined)).toBe(true);
   });
 
-  it('still requires an account for openrouter', () => {
-    // openrouter is the transport for the cmem gateway, so an explicit
-    // openrouter install may still be reaching cmem.ai.
-    expect(providerNeedsAccount('openrouter')).toBe(true);
+  it('exempts an explicit --provider openrouter from the account requirement', () => {
+    expect(providerNeedsAccount('openrouter')).toBe(false);
   });
 
-  it('still requires an account for gemini', () => {
-    expect(providerNeedsAccount('gemini')).toBe(true);
+  it('exempts an explicit --provider gemini from the account requirement', () => {
+    expect(providerNeedsAccount('gemini')).toBe(false);
   });
 });
 
